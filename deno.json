@@ -1,0 +1,18 @@
+{
+  "tasks": {
+    "dev": "deno run --location=http://localhost:5173 -A npm:vite dev",
+    "build": "deno run --location=http://localhost:4173 -A npm:vite build",
+    "preview": "deno run --location=http://localhost:4173 -A npm:vite preview",
+    "test": "deno run -A npm:vitest run"
+  },
+  "fmt": {
+    "exclude": ["build", "dist", "node_modules"]
+  },
+  "lint": {
+    "exclude": ["build", "dist", "node_modules"]
+  },
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "deno.ns", "esnext"],
+    "types": ["svelte"]
+  }
+}
