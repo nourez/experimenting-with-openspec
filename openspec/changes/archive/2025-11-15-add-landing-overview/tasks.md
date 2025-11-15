@@ -1,0 +1,4 @@
+- [x] Create the landing page route/layout with a persistent top navbar that displays the TaskPulse name and stub links; verify visually in the dev server.
+- [x] Add a lightweight data source (mock JSON or in-memory store) that exposes the newest tasks with title, status, and blocker flag; include at least three sample tasks.
+- [x] Render a "New Tasks" overview section on the landing page that lists the mock data with clear status/badges; include empty-state copy when no tasks exist.
+- [x] Add a DOM-focused test (deno test + @testing-library/svelte) that asserts the navbar renders and that the overview lists the provided mock tasks.
