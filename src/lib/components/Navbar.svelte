@@ -1,15 +1,45 @@
+<script lang="ts">
+    import { newTasksStore } from "$lib/stores/newTasks";
+    import TaskCreationDialog from "./TaskCreationDialog.svelte";
+    import type { Tag } from "$lib/data/newTasks";
+
+    let showCreateDialog = false;
+
+    function openDialog() {
+        showCreateDialog = true;
+    }
+
+    function closeDialog() {
+        showCreateDialog = false;
+    }
+
+    function handleCreate(
+        event: CustomEvent<{ title: string; blocked: boolean; tags: Tag[] }>,
+    ) {
+        const { title, blocked, tags } = event.detail;
+        newTasksStore.addTask(title, blocked, tags);
+        closeDialog();
+    }
+</script>
+
 <header class="navbar" aria-label="TaskPulse primary navigation">
     <div class="navbar__content">
         <a class="navbar__brand" href="/">TaskPulse</a>
-        <nav aria-label="Primary links">
+        <nav aria-label="Primary links" class="navbar__actions">
             <ul class="navbar__links">
                 <li><a href="/" aria-current="page">Overview</a></li>
                 <li><a href="/epics">Epics</a></li>
                 <li><a href="/tasks">Tasks</a></li>
             </ul>
+            <button class="btn-create" on:click={openDialog}>Create Task</button
+            >
         </nav>
     </div>
 </header>
+
+{#if showCreateDialog}
+    <TaskCreationDialog on:cancel={closeDialog} on:create={handleCreate} />
+{/if}
 
 <style>
     .navbar {
@@ -38,6 +68,12 @@
         text-decoration: none;
     }
 
+    .navbar__actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
     .navbar__links {
         list-style: none;
         display: flex;
@@ -61,5 +97,21 @@
 
     .navbar__links a:hover {
         background: rgba(148, 163, 184, 0.2);
+    }
+
+    .btn-create {
+        background: #2563eb;
+        color: white;
+        border: none;
+        padding: 0.4rem 0.8rem;
+        border-radius: 0.375rem;
+        font-weight: 500;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .btn-create:hover {
+        background: #1d4ed8;
     }
 </style>

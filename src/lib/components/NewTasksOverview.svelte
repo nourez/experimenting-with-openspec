@@ -36,6 +36,17 @@
                 <li class="task">
                     <div class="task__title-block">
                         <p class="task__title">{task.title}</p>
+                        {#if task.tags && task.tags.length > 0}
+                            <div class="task__tags">
+                                {#each task.tags as tag}
+                                    <span
+                                        class="task__tag"
+                                        style="--tag-color: {tag.color ||
+                                            '#6b7280'}">{tag.name}</span
+                                    >
+                                {/each}
+                            </div>
+                        {/if}
                         <p class="task__meta">
                             Added {new Date(task.createdAt).toLocaleDateString(
                                 undefined,
@@ -195,6 +206,23 @@
     .overview__empty-sub {
         margin-top: 0.25rem;
         font-size: 0.9rem;
+    }
+
+    .task__tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        margin: 0.5rem 0;
+    }
+
+    .task__tag {
+        display: inline-block;
+        padding: 0.125rem 0.5rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid var(--tag-color);
+        color: var(--tag-color);
     }
 
     @media (max-width: 640px) {
